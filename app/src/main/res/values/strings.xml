@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Reminder</string>
-    <string name="add_item_content_desc">Add New Reminder Item</string>
+    <string name="fab_content_desc">Add New Reminder Item</string>
+    <string name="element_text">Text</string>
 </resources>
