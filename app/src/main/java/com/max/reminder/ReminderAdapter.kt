@@ -5,14 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-class ReminderAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
+class ReminderAdapter(private val dataSet: Array<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val textViewTitle: TextView
+        val textViewDescription: TextView
+        val textViewDate: TextView
+        val textViewTime: TextView
 
         init {
-            textView = view.findViewById(R.id.textView)
+            textViewTitle = view.findViewById(R.id.textViewTitle)
+            textViewDescription = view.findViewById(R.id.textViewDescription)
+            textViewDate = view.findViewById(R.id.textViewDate)
+            textViewTime = view.findViewById(R.id.textViewTime)
         }
     }
 
@@ -22,7 +30,10 @@ class ReminderAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet[position]
+        viewHolder.textViewTitle.text = dataSet[position].title
+        viewHolder.textViewDescription.text = dataSet[position].description.toString()
+        viewHolder.textViewDate.text = dataSet[position].dueDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
+        viewHolder.textViewTime.text = dataSet[position].dueTime.format(DateTimeFormatter.ISO_LOCAL_TIME)
     }
 
     override fun getItemCount() = dataSet.size
