@@ -1,21 +1,17 @@
 package com.max.reminder
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64.encodeToString
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.time.LocalDate
-import java.time.LocalTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             val extras = intent.extras
             if (extras == null) {
-                Toast.makeText(this,"No Extras", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No Extras", Toast.LENGTH_SHORT).show()
             } else {
                 val stringEntries = extras.getString("entries")
                 if (stringEntries != null) {
@@ -74,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
-
 
 
 }
