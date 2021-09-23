@@ -10,12 +10,14 @@
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/activity_basic.xml" value="0.3875" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/activity_main2.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/activity_settings.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/reminder_item.xml" value="0.1" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/layout/toolbar.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/menu/main_menu.xml" value="0.19814814814814816" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/menu/overflow_menu.xml" value="0.38153846153846155" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23541666666666666" />
         <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.23541666666666666" />
+        <entry key="..\:/AndroidStudio/Projects/Reminder/app/src/main/res/xml/root_preferences.xml" value="0.5" />
       </map>
     </option>
   </component>

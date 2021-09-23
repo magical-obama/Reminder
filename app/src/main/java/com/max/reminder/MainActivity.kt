@@ -1,11 +1,15 @@
 package com.max.reminder
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,14 +17,23 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    var entries: ArrayList<Reminder> = ArrayList<Reminder>()
+    private var entries: ArrayList<Reminder> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        setupSharedPreferences()
+
+        val darkModeEnabled = getSharedPreferences("com.max.reminder", Context.MODE_PRIVATE).getBoolean("dark_mode", false)
+        if (darkModeEnabled) {
+            setDarkMode(true)
+        } else {
+            setDarkMode(false)
+        }
 
         if (savedInstanceState == null) {
             val extras = intent.extras
@@ -29,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 val stringEntries = extras.getString("entries")
                 if (stringEntries != null) {
-                    entries = Json.decodeFromString<ArrayList<Reminder>>(stringEntries)
+                    entries = Json.decodeFromString(stringEntries)
                 }
             }
         }
@@ -55,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
+    private fun setupSharedPreferences() {
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.overflow_menu, menu)
         return true
@@ -62,7 +80,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            Toast.makeText(this, "Open Settings", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
             true
         }
 
@@ -70,6 +89,32 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
+    private fun setDarkMode(value: Boolean) {
+        if (value) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            delegate.applyDayNight()
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            delegate.applyDayNight()
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if (key.equals("dark_mode")) {
+            if (sharedPreferences != null) {
+                if (sharedPreferences.getBoolean("dark_mode", false)) {
+                    sharedPreferences.edit().putBoolean("dark_mode", sharedPreferences.getBoolean("dark_mode", false)).apply()
+                    setDarkMode(true)
+                } else {
+                    sharedPreferences.edit().putBoolean("dark_mode", sharedPreferences.getBoolean("dark_mode", false)).apply()
+                    setDarkMode(false)
+                }
+            }
+        }
+    }
+
+
 
 
 }
